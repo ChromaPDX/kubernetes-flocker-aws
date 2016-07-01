@@ -1,0 +1,3 @@
+[submodule "mongo-k8s-sidecar"]
+	path = mongo-k8s-sidecar
+	url = https://github.com/cvallance/mongo-k8s-sidecar.git

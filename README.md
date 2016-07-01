@@ -47,6 +47,7 @@ Primary key fingerprint: 18AD 5014 C99E F7E3 BA5F  6CE9 50BD D3E0 FC8A 365E
      Subkey fingerprint: 55DB DA91 BBE1 849E A27F  E733 A6F7 1EE5 BEDD BA18
 
 ### 1.4 INSTALL AWS_KUBE + CLEAN UP
+
 ```
 mv ${PLATFORM}/kube-aws /usr/local/bin
 sudo rm -R ${PLATFORM}
@@ -133,7 +134,16 @@ OR just edit your hosts file with vim or . . . then
 
 ```sh
 kubectl --kubeconfig=kubeconfig get nodes
-ssh -i ~/aws-keypair-key.pem core@CLUSTER_DNS
+```
+
+if you get The connection to the server kube.chroma.fund was refused - did you specify the right host or port?
+
+wait a few minutes
+
+optionally can ssh in to see coreos box
+
+```
+ssh -i ~/your-aws-ec2-key.pem core@CLUSTER_DNS
 ```
 
 ### 3.4 SETUP kubectl and INSTALL DASHBOARD
@@ -158,7 +168,9 @@ kubectl --kubeconfig=kubeconfig proxy
 ```
 
 Starting to serve on 127.0.0.1:8001
-navigate to https://localhost:8001/ui
+navigate to http://localhost:8001/ui
+
+localhost doesn't serve https
 
 ## 4 PERSISTENT data
 
@@ -166,7 +178,7 @@ navigate to https://localhost:8001/ui
 
 ```sh
 aws configure
-aws ec2 create-volume --availability-zone eu-east-1c --size 10 --volume-type gp2
+aws ec2 create-volume --availability-zone eu-east-1c --size 80 --volume-type gp2
 ```
 
 ### 4.2 GET FLOCKER TOOLS FLOCKER
