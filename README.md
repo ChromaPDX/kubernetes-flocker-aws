@@ -172,7 +172,7 @@ navigate to http://localhost:8001/ui
 
 localhost doesn't serve https
 
-## 4 PERSISTENT data
+## 4 FLOCKER / EBS
 
 ### 4.1 CREATE EBS VOLUMES
 
@@ -222,7 +222,38 @@ uft-flocker-plugin-install cluster.yml
 
 ### TEST FLOCKER
 
-uft-flocker-volumes list-nodes
+```
+flockerctl list-nodes -l
+```
+
+create a volume
+
+```
+flockerctl create \
+  --node cfd016df \
+  --size 80Gb \
+  --metadata "name=mongo,size=medium"
+```
+
+you'll need the node ids for step 5
+
+## 5 MONGO
+
+pull in mongo sidecar sub repo
+```
+./get_side_car.sh
+cd mongo-k8s-sidecar/example
+```
+
+edit Makefile to contain the following values
+```
+ENV=FLOCKERAWS
+
+CONTROL_DNS=ec2-52-4-62-37.compute-1.amazonaws.com
+INITIAL_NODE_ID=cfd016df-4f50-4784-8e1b-a0526373aaec
+VOLUME_PREFIX=mongo
+KUBECONFIG=/Users/leif/chroma/aws/kubernetes-flocker-aws/kubeconfig
+```
 
 ## DESTROY
 
