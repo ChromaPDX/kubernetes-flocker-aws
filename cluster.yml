@@ -1,0 +1,21 @@
+cluster_name: "<descriptive name>"
+agent_nodes:
+ - {public: "<node 1 public IP>", private: "<node 1 private IP>"}
+ - {public: "<node 2 public IP>", private: "<node 2 private IP>"}
+ - {public: "<node 3 public IP>", private: "<node 3 private IP>"}
+control_node: "<DNS name of the master node>"
+users:
+ - coreuser
+os: coreos
+private_key_path: "<path on your machine to your .pem file that lets you SSH into nodes as core user>"
+agent_config:
+  version: 1
+  control-service:
+     hostname: "<DNS name of the master node, same as above>"
+     port: 4524
+  dataset:
+    backend: aws
+    region: "<region, e.g. us-east-1>"
+    zone: "<zone that the nodes showed up in, e.g. us-east-1a>"
+    access_key_id: "<your AWS access key>"
+    secret_access_key: "<your AWS secret key>"
